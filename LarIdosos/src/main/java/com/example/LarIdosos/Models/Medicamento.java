@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Medicamento {
 
     // Usamos um ID interno para referenciar no agendamento
-    private String medicamentoId = UUID.randomUUID().toString();
+    private String medicamentoId = null;
 
     private String nome; // Ex: "Losartana 50mg"
 

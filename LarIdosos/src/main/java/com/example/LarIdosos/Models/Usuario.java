@@ -4,6 +4,7 @@ package com.example.LarIdosos.Models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,6 +20,7 @@ public class Usuario {
     private String id;
     private String nome;
     private String quarto;
+    private Binary fotoUrl;
 
     // --- Referências ---
 

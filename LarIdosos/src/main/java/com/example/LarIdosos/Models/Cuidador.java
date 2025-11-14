@@ -3,7 +3,7 @@ package com.example.LarIdosos.Models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.Binary;
 
 /**
  * Representa um Cuidador (familiar, enfermeiro) na coleção 'cuidadores'.
@@ -14,6 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Cuidador {
 
     private String nome;
+
+    private Binary fotoUrl;
 
     private String tipoParentesco; // Ex: "FILHO", "ENFERMEIRO"
 
