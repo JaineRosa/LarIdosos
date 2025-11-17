@@ -77,10 +77,11 @@ public class UsuarioService implements UserDetailsService {
                 "Olá " + usuarioSalvo.getNome() + ", seu cadastro foi realizado com sucesso."
         );
 
-        System.out.println("[Produtor LarIdosos] Enviando DTO para Exchange '" + RabbitMQConfig.DIRECT_EXCHANGE + "' com a chave '" + RabbitMQConfig.EMAIL_WELCOME_QUEUE + "'");
+        System.out.println("[Produtor LarIdosos] Enviando DTO para Exchange '" + RabbitMQConfig.EXCHANGE_NAME + "' com a chave '" + RabbitMQConfig.EMAIL_WELCOME_QUEUE + "'");
+
 
         rabbitTemplate.convertAndSend(
-                RabbitMQConfig.DIRECT_EXCHANGE,
+                RabbitMQConfig.EXCHANGE_NAME,
                 RabbitMQConfig.EMAIL_WELCOME_QUEUE,
                 notificationDto
         );

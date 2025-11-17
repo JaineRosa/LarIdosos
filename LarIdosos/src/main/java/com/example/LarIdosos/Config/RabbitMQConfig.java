@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    public static final String EXCHANGE_NAME = "app.exchange";
     public static final String DIRECT_EXCHANGE = "direct.exchange";
     public static final String FANOUT_EXCHANGE = "fanout.exchange";
 
