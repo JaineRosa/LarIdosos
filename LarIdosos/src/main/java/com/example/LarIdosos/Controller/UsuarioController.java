@@ -22,10 +22,8 @@ public class UsuarioController {
     public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
         try {
             Usuario novoUsuario = usuarioService.criarUsuario(usuario);
-            // Retorna 201 Created (Sucesso na criação)
             return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            // Retorna 400 Bad Request (Ex: e-mail já existe)
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -37,7 +35,6 @@ public class UsuarioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarPorId(@PathVariable String id) {
-        // O .orElseThrow no service já cuida do erro 404
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
@@ -60,9 +57,8 @@ public class UsuarioController {
     public ResponseEntity<?> atualizarUsuario(@PathVariable String id, @RequestBody Usuario usuario) {
         try {
             Usuario usuarioAtualizado = usuarioService.atualizarUsuario(id, usuario);
-            return ResponseEntity.ok(usuarioAtualizado); // Retorna 200 OK
+            return ResponseEntity.ok(usuarioAtualizado);
         } catch (RuntimeException e) {
-            // Retorna 400 Bad Request (Ex: ID não existe, e-mail duplicado)
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -75,7 +71,6 @@ public class UsuarioController {
             usuarioService.alterarSenha(id, dto.getNovaSenha());
             return ResponseEntity.ok("Senha alterada com sucesso.");
         } catch (RuntimeException e) {
-            // Retorna 400 (Bad Request) se o ID não existir ou a senha for nula
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -84,10 +79,8 @@ public class UsuarioController {
     public ResponseEntity<?> deletarUsuario(@PathVariable String id) {
         try {
             usuarioService.deletarUsuario(id);
-            // Retorna 204 No Content (Sucesso na deleção, sem corpo de resposta)
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
-            // Retorna 400 Bad Request (Ex: ID não existe)
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

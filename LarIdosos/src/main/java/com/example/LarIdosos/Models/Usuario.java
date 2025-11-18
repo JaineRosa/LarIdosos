@@ -1,10 +1,8 @@
 package com.example.LarIdosos.Models;
 
 
+import com.example.LarIdosos.Models.Enum.StatusResidencia;
 import com.example.LarIdosos.Models.Enum.TipoUsuario;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -34,6 +32,7 @@ public class Usuario {
     private String cpf;
     private LocalDate dataNascimento;
     private String responsavelId;
+    public StatusResidencia StatusResidencia;
 
     private List<String> notificacoesNaoLidas;
 
@@ -41,24 +40,28 @@ public class Usuario {
 
     private List<String> recomendacoesMedicas;
 
+    private List<String> cuidadoresId;
+
     public Usuario() {
     }
 
-    public Usuario(TipoUsuario tipoUsuario, String id, String nome, String quarto, Binary fotoUrl, String email, String telefone, String senha, String cpf, LocalDate dataNascimento, String responsavelId, List<String> notificacoesNaoLidas, List<String> medicamentos, List<String> recomendacoesMedicas) {
-        this.tipoUsuario = tipoUsuario;
+    public Usuario(String id, String nome, String quarto, Binary fotoUrl, TipoUsuario tipoUsuario, String email, String telefone, String senha, String cpf, LocalDate dataNascimento, String responsavelId, com.example.LarIdosos.Models.Enum.StatusResidencia statusResidencia, List<String> notificacoesNaoLidas, List<String> medicamentos, List<String> recomendacoesMedicas, List<String> cuidadoresId) {
         this.id = id;
         this.nome = nome;
         this.quarto = quarto;
         this.fotoUrl = fotoUrl;
+        this.tipoUsuario = tipoUsuario;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.responsavelId = responsavelId;
+        StatusResidencia = statusResidencia;
         this.notificacoesNaoLidas = notificacoesNaoLidas;
         this.medicamentos = medicamentos;
         this.recomendacoesMedicas = recomendacoesMedicas;
+        this.cuidadoresId = cuidadoresId;
     }
 
     public String getId() {
@@ -149,6 +152,14 @@ public class Usuario {
         this.responsavelId = responsavelId;
     }
 
+    public com.example.LarIdosos.Models.Enum.StatusResidencia getStatusResidencia() {
+        return StatusResidencia;
+    }
+
+    public void setStatusResidencia(com.example.LarIdosos.Models.Enum.StatusResidencia statusResidencia) {
+        StatusResidencia = statusResidencia;
+    }
+
     public List<String> getNotificacoesNaoLidas() {
         return notificacoesNaoLidas;
     }
@@ -171,6 +182,14 @@ public class Usuario {
 
     public void setRecomendacoesMedicas(List<String> recomendacoesMedicas) {
         this.recomendacoesMedicas = recomendacoesMedicas;
+    }
+
+    public List<String> getCuidadoresId() {
+        return cuidadoresId;
+    }
+
+    public void setCuidadoresId(List<String> cuidadoresId) {
+        this.cuidadoresId = cuidadoresId;
     }
 
     public UserDetails toUserDetails() {

@@ -5,5 +5,6 @@ public enum TipoUsuario {
     CUIDADOR,
     RESPONSAVEL,
     VISITANTE,
-    MEDICO
+    MEDICO,
+    ADMIN
 }
