@@ -22,9 +22,9 @@ public class Usuario {
     private String id;
     private String nome;
     private String quarto;
-    private Binary fotoUrl;
+    private String fotoUrl;
     public TipoUsuario tipoUsuario;
-    @Indexed(unique = true)
+    @Indexed(unique = true, sparse = true)
     public String email;
     private String telefone;
     private String senha;
@@ -33,6 +33,8 @@ public class Usuario {
     private LocalDate dataNascimento;
     private String responsavelId;
     public StatusResidencia StatusResidencia;
+    public String especialidadeMedica;
+    public String crm;
 
     private List<String> notificacoesNaoLidas;
 
@@ -42,10 +44,13 @@ public class Usuario {
 
     private List<String> cuidadoresId;
 
+    private List<String> idososId;
+
+
     public Usuario() {
     }
 
-    public Usuario(String id, String nome, String quarto, Binary fotoUrl, TipoUsuario tipoUsuario, String email, String telefone, String senha, String cpf, LocalDate dataNascimento, String responsavelId, com.example.LarIdosos.Models.Enum.StatusResidencia statusResidencia, List<String> notificacoesNaoLidas, List<String> medicamentos, List<String> recomendacoesMedicas, List<String> cuidadoresId) {
+    public Usuario(String id, String nome, String quarto, String fotoUrl, TipoUsuario tipoUsuario, String email, String telefone, String senha, String cpf, LocalDate dataNascimento, String responsavelId, com.example.LarIdosos.Models.Enum.StatusResidencia statusResidencia, String especialidadeMedica, String crm, List<String> notificacoesNaoLidas, List<String> medicamentos, List<String> recomendacoesMedicas, List<String> cuidadoresId, List<String> idososId) {
         this.id = id;
         this.nome = nome;
         this.quarto = quarto;
@@ -58,10 +63,13 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
         this.responsavelId = responsavelId;
         StatusResidencia = statusResidencia;
+        this.especialidadeMedica = especialidadeMedica;
+        this.crm = crm;
         this.notificacoesNaoLidas = notificacoesNaoLidas;
         this.medicamentos = medicamentos;
         this.recomendacoesMedicas = recomendacoesMedicas;
         this.cuidadoresId = cuidadoresId;
+        this.idososId = idososId;
     }
 
     public String getId() {
@@ -88,11 +96,11 @@ public class Usuario {
         this.quarto = quarto;
     }
 
-    public Binary getFotoUrl() {
+    public String getFotoUrl() {
         return fotoUrl;
     }
 
-    public void setFotoUrl(Binary fotoUrl) {
+    public void setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
     }
 
@@ -160,6 +168,22 @@ public class Usuario {
         StatusResidencia = statusResidencia;
     }
 
+    public String getEspecialidadeMedica() {
+        return especialidadeMedica;
+    }
+
+    public void setEspecialidadeMedica(String especialidadeMedica) {
+        this.especialidadeMedica = especialidadeMedica;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
+
     public List<String> getNotificacoesNaoLidas() {
         return notificacoesNaoLidas;
     }
@@ -190,6 +214,14 @@ public class Usuario {
 
     public void setCuidadoresId(List<String> cuidadoresId) {
         this.cuidadoresId = cuidadoresId;
+    }
+
+    public List<String> getIdososId() {
+        return idososId;
+    }
+
+    public void setIdososId(List<String> idososId) {
+        this.idososId = idososId;
     }
 
     public UserDetails toUserDetails() {

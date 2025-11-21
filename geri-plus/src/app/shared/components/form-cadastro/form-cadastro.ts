@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -15,25 +15,24 @@ type CampoTipo =
   | 'password'
   | 'date'
   | 'select'
+  | 'multi-select'
   | 'number'
   | 'textarea'
   | 'array';
 
-// Estrutura de opções para selects
 interface Opcao {
   value: string;
   label: string;
 }
 
-// Estrutura de configuração de cada campo
 export interface CampoConfig {
-  nome: string; // nome do campo (precisa bater com o backend)
-  label: string; // label exibida no formulário
-  tipo: CampoTipo; // tipo de input
-  placeholder?: string; // placeholder opcional
-  validacao?: any[]; // validadores Angular (ex: [Validators.required])
-  opcoes?: Opcao[]; // opções para select
-  arrayItemPlaceholder?: string; // placeholder para itens de array
+  nome: string;
+  label: string;
+  tipo: CampoTipo;
+  placeholder?: string;
+  validacao?: any[];
+  opcoes?: Opcao[];
+  arrayItemPlaceholder?: string;
 }
 
 @Component({
@@ -43,33 +42,55 @@ export interface CampoConfig {
   templateUrl: './form-cadastro.html',
   styleUrls: ['./form-cadastro.scss'],
 })
-export class FormCadastro {
-  @Input() campos: CampoConfig[] = []; // configuração dos campos
-  @Input() initialValue: any = null; // valores iniciais (edição)
-  @Input() salvarLabel = 'Salvar'; // texto do botão
-  @Input() titulo?: string; // título opcional
+export class FormCadastro implements OnChanges {
+  @Input() campos: CampoConfig[] = [];
+  @Input() initialValue: any = null;
+  @Input() salvarLabel = 'Salvar';
+  @Input() titulo?: string;
+  @Input() exibirFoto: boolean = false;
 
-  @Output() submitForm = new EventEmitter<any>(); // evento de submit
+  @Output() submitForm = new EventEmitter<any>();
 
   form!: FormGroup;
+  fotoPreview: string | ArrayBuffer | null = null;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.criarFormulario();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['initialValue']) {
+      this.criarFormulario();
+    }
+  }
+
+  private criarFormulario(): void {
     const group: Record<string, any> = {};
 
     this.campos.forEach((c) => {
       if (c.tipo === 'array') {
         group[c.nome] = this.fb.array([]);
       } else {
-        const valorInicial = this.initialValue?.[c.nome] ?? '';
+        let valorInicial: any;
+
+        if (c.tipo === 'multi-select') {
+          valorInicial = Array.isArray(this.initialValue?.[c.nome])
+            ? this.initialValue[c.nome]
+            : [];
+        } else {
+          valorInicial = this.initialValue?.[c.nome] ?? '';
+        }
         group[c.nome] = [valorInicial, c.validacao || []];
       }
     });
 
+    group['foto'] = [this.initialValue?.foto ?? null];
     this.form = this.fb.group(group);
 
-    // Preencher arrays iniciais se vierem no initialValue
+    this.fotoPreview = this.initialValue?.foto ?? null;
+
     this.campos
       .filter((c) => c.tipo === 'array')
       .forEach((c) => {
@@ -79,29 +100,40 @@ export class FormCadastro {
       });
   }
 
-  // helper para retornar FormControl com cast seguro
+  onFotoSelecionada(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => (this.fotoPreview = reader.result);
+      reader.readAsDataURL(file);
+      this.form.patchValue({ foto: file });
+    }
+  }
+
+  removerFoto(): void {
+    this.fotoPreview = null;
+    this.form.patchValue({ foto: null });
+  }
+
   getControl(name: string): FormControl | null {
     return this.form.get(name) as FormControl | null;
   }
 
-  // helper para retornar FormArray com cast seguro
   getArray(name: string): FormArray<FormControl> {
     return this.form.get(name) as FormArray<FormControl>;
   }
 
   addArrayItem(name: string): void {
-    const arr = this.getArray(name);
-    arr.push(new FormControl(''));
+    this.getArray(name).push(new FormControl(''));
   }
 
   removeArrayItem(name: string, index: number): void {
     const arr = this.getArray(name);
-    if (arr && arr.length > index) {
+    if (arr.length > index) {
       arr.removeAt(index);
     }
   }
 
-  // Submissão
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

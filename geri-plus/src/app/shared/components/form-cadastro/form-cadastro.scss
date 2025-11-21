@@ -4,7 +4,7 @@
   background: vars.$text-light; // fundo branco
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   .form-label {
     font-weight: 600;
@@ -21,5 +21,75 @@
   .btn-outline-secondary {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
+  }
+  // BLOCO DE FOTO
+  .foto-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .foto-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: vars.$gray-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .foto-placeholder {
+        color: vars.$gray-medium;
+        font-size: 0.9rem;
+      }
+    }
+
+    .foto-acoes {
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+
+      .botao-upload {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border: 1px solid vars.$primary-color;
+        border-radius: 6px;
+        color: vars.$primary-color;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.2s, color 0.2s;
+
+        &:hover {
+          background-color: vars.$primary-color;
+          color: vars.$text-light;
+        }
+      }
+
+      button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border: 1px solid vars.$error-color;
+        border-radius: 6px;
+        background: none;
+        color: vars.$error-color;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        min-height: 40px;
+        transition: background-color 0.2s, color 0.2s;
+
+        &:hover {
+          background-color: vars.$error-color;
+          color: vars.$text-light;
+        }
+      }
+    }
   }
 }

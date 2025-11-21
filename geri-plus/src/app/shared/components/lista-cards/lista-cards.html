@@ -1,0 +1,32 @@
+<div class="lista-cards">
+  <!-- título opcional -->
+  <h2 *ngIf="titulo">{{ titulo }}</h2>
+
+  <!-- loop nos itens -->
+  <div class="card" *ngFor="let item of itens">
+    <!-- foto/avatar -->
+    <div class="card-foto" *ngIf="exibirFoto">
+      <img *ngIf="item?.fotoUrlSegura" [src]="item?.fotoUrlSegura" alt="Foto do Usuário" />
+
+      <div *ngIf="!item?.fotoUrlSegura" class="foto-placeholder">Sem foto</div>
+    </div>
+
+    <!-- conteúdo principal -->
+    <div class="card-conteudo">
+      <div *ngFor="let campo of camposResumo">
+        <strong>{{ campo }}:</strong> {{ item[campo] }}
+      </div>
+    </div>
+
+    <!-- ações -->
+    <div class="card-acoes">
+      <button type="button" class="btn btn-sm btn-primary" (click)="onEditar(item)">Editar</button>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onExcluir(item)">
+        Excluir
+      </button>
+
+      <!-- se quiser usar detalhes depois -->
+      <!-- <button class="btn btn-sm btn-secondary" (click)="onDetalhes(item)">Detalhes</button> -->
+    </div>
+  </div>
+</div>

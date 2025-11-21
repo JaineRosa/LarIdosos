@@ -1,6 +1,30 @@
-<app-form-cadastro
-  [titulo]="'Cadastro de Cuidador'"
-  [campos]="cuidadorCampos"
-  [salvarLabel]="'Salvar Cuidador'"
-  (submitForm)="onSubmitCuidador($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Cuidadores</h1>
+
+  <!-- Botão para novo cadastro -->
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">
+    + Novo Cuidador
+  </button>
+
+  <!-- Lista de cuidadores cadastrados -->
+  <app-lista-cards
+    [titulo]="'Cuidadores cadastrados'"
+    [itens]="listaCuidadores"
+    [camposResumo]="['nome', 'cpf', 'telefone', 'email','idososVinculadosNomes']"
+    [exibirFoto]="true"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)"
+  >
+  </app-lista-cards>
+
+  <!-- Formulário de cadastro -->
+  <app-form-cadastro
+    [titulo]="'Cadastro de Cuidador'"
+    [campos]="cuidadorCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Cuidador'"
+    [exibirFoto]="true"
+    (submitForm)="onSubmitCuidador($event)"
+  >
+  </app-form-cadastro>
+</div>

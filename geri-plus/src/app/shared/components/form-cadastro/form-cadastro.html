@@ -2,6 +2,25 @@
   <h5 *ngIf="titulo" class="mb-3">{{ titulo }}</h5>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- BLOCO DE FOTO -->
+    <div *ngIf="exibirFoto" class="foto-container mb-4">
+      <div class="foto-preview">
+        <img *ngIf="fotoPreview" [src]="fotoPreview" alt="Foto de perfil" />
+        <div *ngIf="!fotoPreview" class="foto-placeholder">Sem foto</div>
+      </div>
+
+      <div class="foto-acoes">
+        <label class="btn btn-outline-primary botao-upload">
+          <input type="file" (change)="onFotoSelecionada($event)" accept="image/*" hidden />
+          Upload nova foto
+        </label>
+
+        <button type="button" class="btn btn-outline-danger" (click)="removerFoto()">
+          Remover
+        </button>
+      </div>
+    </div>
+
     <div class="row g-3">
       <div *ngFor="let campo of campos" class="col-12 col-md-6">
         <label class="form-label" [attr.for]="campo.nome">{{ campo.label }}</label>
@@ -85,6 +104,18 @@
             <option value="">{{ campo.placeholder || 'Selecione...' }}</option>
             <option *ngFor="let op of campo.opcoes" [value]="op.value">{{ op.label }}</option>
           </select>
+
+          <select
+        *ngIf="campo.tipo === 'multi-select'"
+        [id]="campo.nome"
+        [formControlName]="campo.nome"
+        multiple
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border bg-white h-40"
+      >
+        <option *ngFor="let opcao of campo.opcoes" [ngValue]="opcao.value">
+          {{ opcao.label }}
+        </option>
+      </select>
 
           <!-- Array (lista dinâmica) -->
           <div *ngSwitchCase="'array'" [formArrayName]="campo.nome">

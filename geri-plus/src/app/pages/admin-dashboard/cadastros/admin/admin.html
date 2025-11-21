@@ -1,7 +1,28 @@
-<!-- Insere o componente de formulário reutilizável -->
-<app-form-cadastro
-  [campos]="adminCampos"
-  titulo="Cadastro de Administrador"
-  salvarLabel="Salvar Admin"
-  (submit)="onSubmitAdmin($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Administradores</h1>
+
+  <!-- Botão para novo cadastro -->
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">+ Novo Admin</button>
+
+  <!-- Lista de administradores cadastrados -->
+  <app-lista-cards
+    [titulo]="'Administradores cadastrados'"
+    [itens]="listaAdmins"
+    [camposResumo]="['nome', 'cpf', 'email']"
+    [exibirFoto]="true"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)"
+  >
+  </app-lista-cards>
+
+  <!-- Formulário de cadastro -->
+  <app-form-cadastro
+    [titulo]="'Cadastro de Administrador'"
+    [campos]="adminCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Admin'"
+    [exibirFoto]="true"
+    (submitForm)="onSubmitAdmin($event)"
+  >
+  </app-form-cadastro>
+</div>

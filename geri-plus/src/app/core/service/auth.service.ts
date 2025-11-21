@@ -14,18 +14,13 @@ export class AuthService {
   private repository = inject(AuthRepository);
 
   login(email: string, senha: string): Observable<boolean> {
-    // Garante que envia 'senha' para o backend
     return this.repository.login({ email, senha: senha, platform: 'WEB' }).pipe(
       map((response: any) => {
         console.log('AuthService: Resposta bruta do login:', response);
-        
-        // Tenta normalizar a resposta antes de salvar
-        // Se o backend mandar usuario fora do padrão, tentamos ajustar aqui
         if (!response.usuario && response.user) {
             response.usuario = response.user;
         }
 
-        // Salva no localStorage
         localStorage.setItem(currentKey, JSON.stringify(response));
         return true;
       }),
@@ -45,9 +40,6 @@ export class AuthService {
     );
   }
 
-  /**
-   * Verifica se há sessão ativa
-   */
   isLoggedIn(): boolean {
     return !!localStorage.getItem(currentKey);
   }

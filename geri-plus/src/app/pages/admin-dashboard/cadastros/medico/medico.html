@@ -1,7 +1,29 @@
-<app-form-cadastro
-  [titulo]="'Cadastro de Médico'"
-  [campos]="medicoCampos"
-  [salvarLabel]="'Salvar Médico'"
-  (submitForm)="onSubmitMedico($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Médicos</h1>
 
+  <!-- Botão para novo cadastro -->
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">+ Novo Médico</button>
+
+  <!-- Lista de médicos cadastrados -->
+  <app-lista-cards
+    [titulo]="'Médicos cadastrados'"
+    [itens]="listaMedicos"
+    [camposResumo]="['nome', 'crm', 'especialidadeMedica', 'email']"
+    [exibirFoto]="true"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)"
+  >
+  </app-lista-cards>
+
+  <!-- Formulário de cadastro -->
+  <app-form-cadastro
+    *ngIf="modoEdicao"
+    [titulo]="'Cadastro de Médico'"
+    [campos]="medicoCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Médico'"
+    [exibirFoto]="true"
+    (submitForm)="onSubmitMedico($event)"
+  >
+  </app-form-cadastro>
+</div>

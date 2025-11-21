@@ -1,7 +1,26 @@
-<app-form-cadastro
-  [titulo]="'Cadastro de Responsável'"
-  [campos]="responsavelCampos"
-  [salvarLabel]="'Salvar Responsável'"
-  (submitForm)="onSubmitResponsavel($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Responsáveis</h1>
 
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">
+    + Novo Responsável
+  </button>
+
+  <app-lista-cards
+    [titulo]="'Responsáveis cadastrados'"
+    [itens]="listaResponsaveis"
+    [camposResumo]="['nome', 'cpf', 'telefone', 'email']"
+    [exibirFoto]="true"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)">
+  </app-lista-cards>
+
+  <app-form-cadastro
+    *ngIf="modoEdicao" 
+    [titulo]="initialValue ? 'Editar Responsável' : 'Novo Responsável'"
+    [campos]="responsavelCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Responsável'"
+    [exibirFoto]="true"
+    (submitForm)="onSubmitResponsavel($event)">
+  </app-form-cadastro>
+</div>

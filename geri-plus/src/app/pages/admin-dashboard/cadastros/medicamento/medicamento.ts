@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormCadastro, CampoConfig } from '../../../../shared/components/form-cadastro/form-cadastro';
+import {
+  FormCadastro,
+  CampoConfig,
+} from '../../../../shared/components/form-cadastro/form-cadastro';
+import { ListaCards } from '../../../../shared/components/lista-cards/lista-cards';
 
 @Component({
   selector: 'app-medicamento',
   standalone: true,
-  imports: [CommonModule, FormCadastro],
+  imports: [CommonModule, FormCadastro, ListaCards],
   templateUrl: './medicamento.html',
   styleUrls: ['./medicamento.scss'],
 })
@@ -84,12 +88,60 @@ export class Medicamento {
     },
   ];
 
-  onSubmitMedicamento(payload: any): void {
-    const data = {
-      ...payload,
-    };
+  // 🔹 Lista de medicamentos cadastrados
+  listaMedicamentos: any[] = [
+    {
+      nome: 'Paracetamol',
+      dosagem: '500mg',
+      frequenciaDiaria: '2 vezes ao dia',
+      duracaoTratamento: '7 dias',
+      viaAdministracao: 'ORAL',
+      dataPrescricao: '2025-11-20',
+      medicoId: 'MED-001',
+      idosoId: 'ID-001',
+      observacoes: 'Tomar após as refeições',
+    },
+  ];
 
-    console.log('Payload Medicamento:', data);
-    // Futuramente: integrar com backend via HttpClient ou service
+  initialValue: any = null;
+  modoEdicao = false;
+
+  // Abrir form para novo cadastro
+  novoCadastro() {
+    this.initialValue = null;
+    this.modoEdicao = true;
+  }
+
+  // Abrir form para edição
+  abrirFormEdicao(item: any) {
+    this.initialValue = item;
+    this.modoEdicao = true;
+  }
+
+  // Salvar medicamento
+  onSubmitMedicamento(payload: any): void {
+    const data = { ...payload };
+
+    if (this.initialValue) {
+      const index = this.listaMedicamentos.findIndex((m) => m.nome === this.initialValue.nome);
+      if (index !== -1) {
+        this.listaMedicamentos[index] = data;
+      }
+    } else {
+      this.listaMedicamentos.push(data);
+    }
+
+    console.log('Lista atualizada:', this.listaMedicamentos);
+
+    this.modoEdicao = false;
+    this.initialValue = null;
+  }
+
+  // Excluir medicamento
+  onExcluir(item: any) {
+    if (confirm(`Tem certeza que deseja excluir o medicamento ${item.nome}?`)) {
+      this.listaMedicamentos = this.listaMedicamentos.filter((m) => m.nome !== item.nome);
+      alert('Medicamento excluído com sucesso!');
+    }
   }
 }

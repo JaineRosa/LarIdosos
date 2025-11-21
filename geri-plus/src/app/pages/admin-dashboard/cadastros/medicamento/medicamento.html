@@ -1,7 +1,30 @@
-<app-form-cadastro
-  [titulo]="'Cadastro de Medicamento'"
-  [campos]="medicamentoCampos"
-  [salvarLabel]="'Salvar Medicamento'"
-  (submitForm)="onSubmitMedicamento($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Medicamentos</h1>
 
+  <!-- Botão para novo cadastro -->
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">
+    + Novo Medicamento
+  </button>
+
+  <!-- Lista de medicamentos cadastrados -->
+  <app-lista-cards
+    [titulo]="'Medicamentos cadastrados'"
+    [itens]="listaMedicamentos"
+    [camposResumo]="['nome', 'dosagem', 'frequencia']"
+    [exibirFoto]="false"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)"
+  >
+  </app-lista-cards>
+
+  <!-- Formulário de cadastro -->
+  <app-form-cadastro
+    [titulo]="'Cadastro de Medicamento'"
+    [campos]="medicamentoCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Medicamento'"
+    [exibirFoto]="false"
+    (submitForm)="onSubmitMedicamento($event)"
+  >
+  </app-form-cadastro>
+</div>

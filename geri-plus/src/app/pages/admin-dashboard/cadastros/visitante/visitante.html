@@ -1,6 +1,30 @@
-<app-form-cadastro
-  [titulo]="'Cadastro de Visitante'"
-  [campos]="visitanteCampos"
-  [salvarLabel]="'Salvar Visitante'"
-  (submitForm)="onSubmitVisitante($event)"
-></app-form-cadastro>
+<div class="cadastro-page">
+  <h1>Cadastro de Visitantes</h1>
+
+  <!-- Botão para novo cadastro -->
+  <button type="button" class="btn btn-primary mb-3" (click)="novoCadastro()">
+    + Novo Visitante
+  </button>
+
+  <!-- Lista de visitantes cadastrados -->
+  <app-lista-cards
+    [titulo]="'Visitantes cadastrados'"
+    [itens]="listaVisitantes"
+    [camposResumo]="['nome', 'cpf', 'telefone', 'email']"
+    [exibirFoto]="true"
+    (editar)="abrirFormEdicao($event)"
+    (excluir)="onExcluir($event)"
+  >
+  </app-lista-cards>
+
+  <!-- Formulário de cadastro -->
+  <app-form-cadastro
+    [titulo]="'Cadastro de Visitante'"
+    [campos]="visitanteCampos"
+    [initialValue]="initialValue"
+    [salvarLabel]="'Salvar Visitante'"
+    [exibirFoto]="true"
+    (submitForm)="onSubmitVisitante($event)"
+  >
+  </app-form-cadastro>
+</div>
