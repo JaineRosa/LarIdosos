@@ -1,1 +1,8 @@
-<p>registro-diario works!</p>
+<app-card-generico
+  *ngFor="let r of registros"
+  titulo="{{ r.titulo }}"
+  descricao="{{ r.descricao }}"
+  icone="{{ r.icone }}"
+  tipo="{{ r.tipo }}">
+</app-card-generico>
+

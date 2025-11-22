@@ -1,0 +1,76 @@
+<section class="painel-container">
+  <!-- Header -->
+  <app-painel-header
+    [nomeFamiliar]="nomeFamiliar"
+    [nomeHospede]="nomeHospede"
+    [cpfHospede]="cpfHospede"
+  >
+  </app-painel-header>
+
+  <!-- Menu fixo -->
+  <nav class="menu-painel">
+    <button
+      type="button"
+      (click)="selecionarAba('dados-gerais')"
+      [class.ativo]="abaSelecionada === 'dados-gerais'"
+    >
+      <i class="fas fa-info-circle"></i> Dados Gerais
+    </button>
+
+    <button
+      type="button"
+      (click)="selecionarAba('medicamentos')"
+      [class.ativo]="abaSelecionada === 'medicamentos'"
+    >
+      <i class="fas fa-pills"></i> Medicamentos
+    </button>
+
+    <button
+      type="button"
+      (click)="selecionarAba('cuidadores')"
+      [class.ativo]="abaSelecionada === 'cuidadores'"
+    >
+      <i class="fas fa-user-nurse"></i> Cuidadores
+    </button>
+
+    <button
+      type="button"
+      (click)="selecionarAba('recomendacoes')"
+      [class.ativo]="abaSelecionada === 'recomendacoes'"
+    >
+      <i class="fas fa-notes-medical"></i> Recomendações Médicas
+    </button>
+
+    <button
+      type="button"
+      (click)="selecionarAba('notificacoes')"
+      [class.ativo]="abaSelecionada === 'notificacoes'"
+    >
+      <i class="fas fa-bell"></i> Notificações
+    </button>
+  </nav>
+
+  <!-- Área fixa para conteúdo -->
+  <div class="conteudo-painel">
+    <app-dados-gerais
+      *ngIf="abaSelecionada === 'dados-gerais'"
+      [nomeFamiliar]="nomeFamiliar"
+      [nomeHospede]="nomeHospede"
+      [cpfHospede]="cpfHospede"
+    >
+    </app-dados-gerais>
+
+    <app-medicamentos *ngIf="abaSelecionada === 'medicamentos'"[cpfHospede]="'909.443.059-20'"></app-medicamentos>
+
+
+    <app-cuidadores *ngIf="abaSelecionada === 'cuidadores'" [cpfHospede]="cpfHospede">
+    </app-cuidadores>
+
+    <app-recomendacoes-medicas *ngIf="abaSelecionada === 'recomendacoes'" [cpfHospede]="cpfHospede">
+    </app-recomendacoes-medicas>
+
+    <app-notificacoes *ngIf="abaSelecionada === 'notificacoes'" [cpfHospede]="cpfHospede">
+    </app-notificacoes>
+  </div>
+</section>
+

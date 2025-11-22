@@ -1,1 +1,10 @@
-<p>notificacoes works!</p>
+<section>
+  <h2>Notificações</h2>
+  <app-card-generico
+    *ngFor="let n of notificacoes"
+    titulo="{{ n.titulo }}"
+    descricao="{{ n.descricao }}"
+    icone="{{ n.icone }}"
+    tipo="{{ n.tipo }}">
+  </app-card-generico>
+</section>

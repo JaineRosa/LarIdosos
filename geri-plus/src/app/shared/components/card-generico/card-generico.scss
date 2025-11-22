@@ -1,0 +1,113 @@
+@use '../../../../styles/variables' as vars;
+
+.card-generico {
+  position: relative;
+  background-color: vars.$text-light;
+  border: 1px solid vars.$gray-medium;
+  border-left: 6px solid vars.$primary-color;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease-in-out;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .material-icons {
+      font-size: 1.5rem;
+      color: vars.$primary-color;
+    }
+
+    .card-titles {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        margin: 0;
+        color: vars.$primary-color;
+        font-size: vars.$font-size-medium;
+      }
+
+      small {
+        color: vars.$gray-medium;
+        font-size: vars.$font-size-small;
+      }
+    }
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    color: vars.$text-dark;
+    font-size: vars.$font-size-small;
+  }
+
+  /* 🔹 Variações de cor */
+  &.success {
+    border-left-color: vars.$accent-color;
+  }
+
+  &.info {
+    border-left-color: vars.$light-blue;
+  }
+
+  &.warning {
+    border-left-color: vars.$lime-green;
+  }
+
+  &.error {
+    border-left-color: vars.$error-color;
+  }
+
+  &.default {
+    border-left-color: vars.$primary-color;
+  }
+
+  &:hover {
+    background-color: vars.$gray-light;
+  }
+}
+
+/* 🔹 Variante usada só na página Sobre */
+:host(.sobre) {
+  max-width: 220px;
+  height: 220px;
+  display: flex;
+  flex-direction: column; // garante que ícone e texto fiquem empilhados
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  text-align: center;
+
+  /* Ajuste interno para centralizar conteúdo */
+  .card-generico {
+    border: none; // remove borda lateral para não conflitar
+    box-shadow: none; // evita sombra dupla
+    background-color: transparent; // deixa só o estilo do host
+    margin: 0;
+    padding: 0;
+    
+
+    .card-header {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .material-icons {
+        font-size: 2rem; // ícone maior para destaque
+      }
+
+      h3 {
+        font-size: vars.$font-size-medium;
+        color: vars.$dark-blue;
+      }
+    }
+
+    p {
+      font-size: vars.$font-size-small;
+      color: vars.$text-dark;
+    }
+  }
+}

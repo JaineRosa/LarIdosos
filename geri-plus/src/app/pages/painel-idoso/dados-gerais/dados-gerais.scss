@@ -1,0 +1,233 @@
+@use '../../../../styles/variables' as vars;
+
+.dados-gerais {
+  max-width: 1200px;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 2rem;
+
+  .card-idoso {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: rgba(vars.$text-light, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+
+    .foto-idoso {
+      width: 160px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid vars.$accent-color;
+    }
+
+    .info-principal {
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: vars.$dark-blue;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+        color: vars.$dark-blue;
+        margin: 0.3rem 0;
+
+        strong {
+          color: vars.$primary-color;
+        }
+      }
+    }
+  }
+
+  .dados-detalhados {
+    margin-top: 2rem;
+
+    .grupo {
+      margin-bottom: 1.5rem;
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: vars.$dark-blue;
+        margin-bottom: 0.5rem;
+      }
+
+      .linha {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+
+        p {
+          font-size: 1rem;
+          color: vars.$dark-blue;
+
+          strong {
+            color: vars.$primary-color;
+          }
+        }
+      }
+
+      p {
+        font-size: 1rem;
+        color: vars.$dark-blue;
+        margin: 0.3rem 0;
+
+        strong {
+          color: vars.$primary-color;
+        }
+      }
+    }
+  }
+
+  /* Tablets */
+  @media (max-width: 1024px) {
+    .card-idoso {
+      padding: 1.5rem;
+
+      .foto-idoso {
+        width: 140px;
+      }
+
+      .info-principal {
+        h2 {
+          font-size: 1.6rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+        }
+      }
+    }
+
+    .dados-detalhados {
+      .grupo {
+        h3 {
+          font-size: 1.1rem;
+        }
+
+        .linha {
+          gap: 1.5rem;
+        }
+
+        p {
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .card-idoso {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .foto-idoso {
+        width: 120px;
+        margin-bottom: 1rem;
+      }
+
+      .info-principal {
+        h2 {
+          font-size: 1.4rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .dados-detalhados {
+      .grupo {
+        h3 {
+          font-size: 1rem;
+        }
+
+        .linha {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  /* Telas grandes */
+  @media (min-width: 1280px) {
+    .card-idoso {
+      padding: 3rem;
+      gap: 3rem;
+
+      .foto-idoso {
+        width: 200px;
+      }
+
+      .info-principal {
+        h2 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .dados-detalhados {
+      .grupo {
+        h3 {
+          font-size: 1.3rem;
+        }
+
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+  @media (min-width: 1440px) {
+    .dados-gerais {
+      max-width: 1400px; // 🔄 ocupa mais largura útil
+      padding: 2rem 3rem; // 🔄 mais respiro lateral
+    }
+  }
+}
+
+.notificacoes-recentes app-card-generico {
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+.notificacoes-recentes .card-header {
+  align-items: flex-start;
+}
+
+.notificacoes-recentes p {
+  line-height: 1.4;
+  word-break: break-word;
+}
+@media (min-width: 1024px) {
+  .notificacoes-recentes {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+.msg-ir-notificacoes {
+  margin-top: 0.5rem;
+  font-size: vars.$font-size-small;
+  color: vars.$gray-medium;
+  font-style: italic;
+
+}
+i {
+  margin-right: 0.5rem;
+  color: vars.$exit-red-hover;
+}

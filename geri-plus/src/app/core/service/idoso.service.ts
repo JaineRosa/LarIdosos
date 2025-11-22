@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { UserRepository } from '../repository/user.repository';
 import { UserModel } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IdosoService {
-
   constructor(private userRepo: UserRepository) {}
 
   listar(): Observable<UserModel[]> {
@@ -31,4 +30,5 @@ export class IdosoService {
   excluir(id: string): Observable<void> {
     return this.userRepo.delete(id);
   }
+
 }

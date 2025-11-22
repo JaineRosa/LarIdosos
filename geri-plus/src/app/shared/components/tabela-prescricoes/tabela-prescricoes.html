@@ -1,0 +1,28 @@
+<table class="tabela-prescricoes">
+  <thead>
+    <tr>
+      <th>Medicamento</th>
+      <th>Dosagem</th>
+      <th>Frequência diária</th>
+      <th>Duração do Tratamento</th>
+      <th>Via de administração</th>
+      <th>Data da prescrição</th>
+      <th>Médico</th>
+      <th>Idoso</th>
+      <th>Observações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of prescricoes">
+      <td>{{ p.nome }}</td>
+      <td>{{ p.dosagem }}</td>
+      <td>{{ p.frequenciaDiaria }}</td>
+      <td>{{ p.duracaoTratamento }}</td>
+      <td>{{ p.viaAdministracao }}</td>
+      <td>{{ p.dataPrescricao }}</td>
+      <td>{{ p.medicoId }}</td>
+      <td>{{ p.idosoId }}</td>
+      <td>{{ p.observacoes }}</td>
+    </tr>
+  </tbody>
+</table>

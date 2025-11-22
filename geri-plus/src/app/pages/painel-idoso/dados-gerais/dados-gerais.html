@@ -1,1 +1,69 @@
-<p>dados-gerais works!</p>
+<section class="dados-gerais">
+  <div class="card-idoso">
+    <img
+      [src]="dadosIdoso.foto"
+      alt="Foto de {{ dadosIdoso.nome }}"
+      class="foto-idoso"
+      aria-label="Foto do idoso"
+    />
+
+    <div class="info-principal">
+      <h2>{{ dadosIdoso.nome }}</h2>
+      <p><strong>CPF:</strong> {{ dadosIdoso.cpf }}</p>
+      <p><strong>Status:</strong> {{ dadosIdoso.statusResidencia }}</p>
+    </div>
+  </div>
+
+  <div class="dados-detalhados">
+    <div class="grupo">
+      <h3>Dados Pessoais</h3>
+      <div class="linha">
+        <p><strong>Nascimento:</strong> {{ dadosIdoso.dataNascimento }}</p>
+        <p><strong>Quarto:</strong> {{ dadosIdoso.quarto }}</p>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <h3>Medicamentos</h3>
+      <p>{{ dadosIdoso.medicamentos.join(', ') }}</p>
+    </div>
+
+    <div class="grupo">
+      <h3>Recomendações Médicas</h3>
+      <p>{{ dadosIdoso.recomendacoesMedicas.join(', ') }}</p>
+    </div>
+  </div>
+</section>
+<!-- Seção de notificações reaproveitando CardGenerico -->
+<div class="notificacoes-recentes">
+  <h3>Notificações Recentes <i class="fas fa-exclamation-triangle "></i></h3>
+
+  <ng-container *ngIf="notificacoes.length > 0; else vazio">
+    <app-card-generico
+      *ngFor="let notif of notificacoes"
+      [titulo]="notif.titulo"
+      [subtitulo]="notif.data"
+      [descricao]="notif.mensagem"
+      icone="bell"
+      [tipo]="notif.tipo || 'default'"
+    >
+    </app-card-generico>
+
+    <!-- Mensagem informativa -->
+
+    <!-- Mensagem só aparece se houver notificações -->
+    <p class="msg-ir-notificacoes">
+      Para ver todas as notificações, use o menu superior e clique na aba <strong>Notificações</strong>.
+    </p>
+  </ng-container>
+
+  <ng-template #vazio>
+    <app-card-generico
+      titulo="Nenhuma notificação recente"
+      descricao="Clique abaixo para ver todas as notificações"
+      icone="bell"
+      tipo="default"
+    >
+    </app-card-generico>
+  </ng-template>
+</div>

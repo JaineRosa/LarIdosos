@@ -1,0 +1,54 @@
+@use '../../../styles/variables' as vars;
+
+.painel-idoso {
+  background-color: vars.$gray-light;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: vars.$max-width;
+  margin: 2rem auto;
+
+  h1 {
+    color: vars.$primary-color;
+    font-size: vars.$font-size-large;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .menu-painel {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    button {
+      /* 'type' é um atributo HTML — defina no template (<button type="button">) */
+      background-color: vars.$primary-color;
+      color: vars.$text-light;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+      &:hover {
+        background-color: vars.$accent-color;
+        transform: translateY(-2px);
+      }
+
+      &.ativo {
+        background-color: vars.$accent-color;
+        border-bottom: 3px solid vars.$dark-blue;
+      }
+    }
+  }
+
+  section {
+    background-color: vars.$text-light;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+}
+
+

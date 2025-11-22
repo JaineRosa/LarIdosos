@@ -1,1 +1,39 @@
-<p>cuidadores works!</p>
+<div class="cuidadores">
+  <h3>Cuidadores Ativos</h3>
+  <ng-container *ngIf="listaCuidadores.length > 0; else vazio">
+    <app-card-generico
+      *ngFor="let cuidador of listaCuidadores"
+      [titulo]="cuidador.nome"
+      [subtitulo]="cuidador.turno"
+      [descricao]="'Tel: ' + cuidador.telefone + ' | Email: ' + cuidador.email"
+      icone="user-nurse"
+      tipo="info"
+    >
+      <span class="badge" [ngClass]="cuidador.turno.toLowerCase()">
+        {{ cuidador.turno }}
+      </span>
+    </app-card-generico>
+  </ng-container>
+
+  <ng-template #vazio>
+    <app-card-generico
+      titulo="Nenhum cuidador ativo"
+      descricao="Este hóspede não possui cuidadores registrados."
+      icone="user-nurse"
+      tipo="default"
+    >
+    </app-card-generico>
+  </ng-template>
+
+  <h3>Histórico de Cuidadores</h3>
+  <div class="historico">
+    <app-card-generico
+      *ngFor="let cuidador of cuidadoresHistorico"
+      [titulo]="cuidador.nome"
+      [descricao]="'Período: ' + cuidador.periodo"
+      icone="user-nurse"
+      tipo="default"
+    >
+    </app-card-generico>
+  </div>
+</div>

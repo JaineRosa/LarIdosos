@@ -1,1 +1,47 @@
-<p>medicamentos works!</p>
+<div class="medicamentos">
+  <h3>Medicamentos</h3>
+  <!-- 🔹 Select de impressão -->
+  <div class="imprimir-prescricao">
+    <label for="tipoPrescricao">Imprimir prescrição:</label>
+    <select id="tipoPrescricao" [(ngModel)]="selectedTipoPrescricao">
+      <option value="">Selecione</option>
+      <option value="novos">Medicamentos novos</option>
+      <option value="continuos">Medicamentos contínuos</option>
+    </select>
+    <button (click)="imprimirPrescricao()" [disabled]="!selectedTipoPrescricao">
+      <i class="fas fa-print"></i> Imprimir
+    </button>
+  </div>
+
+  <ng-container *ngIf="medicamentosDoIdoso.length > 0; else vazio">
+    <app-card-generico
+      *ngFor="let med of medicamentosDoIdoso"
+      [titulo]="med.nome"
+      [subtitulo]="med.dosagem"
+      [descricao]="med.frequenciaDiaria + ' | ' + med.duracaoTratamento + ' | ' + med.observacoes"
+      icone="pills"
+      [tipo]="med.status === 'novo' ? 'success' : 'info'"
+    >
+      <!-- Badge com cores da paleta -->
+      <span class="badge" [ngClass]="med.status === 'novo' ? 'novo' : 'em-uso'">
+        {{ med.status === 'novo' ? 'Novo' : 'Em uso' }}
+      </span>
+    </app-card-generico>
+  </ng-container>
+
+  <ng-template #vazio>
+    <app-card-generico
+      titulo="Nenhum medicamento encontrado"
+      descricao="Este hóspede não possui medicamentos registrados."
+      icone="pills"
+      tipo="default"
+    >
+    </app-card-generico>
+  </ng-template>
+
+  <!-- Legenda de badges no topo -->
+  <div class="legenda-badges">
+    <span class="badge novo">Novo</span> Medicamento recém-adicionado &nbsp;&nbsp;
+    <span class="badge em-uso">Em uso</span> Medicamento uso contínuo
+  </div>
+</div>

@@ -1,71 +1,166 @@
-.sobre-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--bs-primary), var(--bs-success));
-  padding-top: 80px;
-}
+@use '../../../styles/variables' as vars;
 
-/* Responsividade: em telas menores, reduza o espaçamento */
-@media (max-width: 768px) {
-  .sobre-page {
-    padding-top: 60px; /* menos espaço em telas pequenas */
+.sobre-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(vars.$text-light, 0.95);
+
+  @media (max-width: 768px) {
+    padding-top: 60px;
   }
 }
 
-.sobre-card {
+/* Hero como banner */
+.sobre-hero-wrapper {
+  width: 100%;
+  min-height: 60vh; // desktop
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, vars.$primary-color, vars.$accent-color);
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 0;
+
+  .hero-image img {
+    max-width: 60%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 1rem;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .hero-image img:hover {
+    transform: scale(1.05);
+  }
+
+  /* 🔹 Ajuste para telas pequenas */
+  @media (max-width: 768px) {
+    min-height: 40vh; // reduz altura do hero
+    padding: 0.5rem;
+
+    .hero-image img {
+      max-width: 90%;   // ocupa mais largura, mas proporcional
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // sombra mais leve
+    }
+  }
+}
+
+
+/* Valores */
+.valores {
   max-width: 1100px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  margin-top: 80px;
-}
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
 
-.sobre-card h2,
-.sobre-card h3,
-.sobre-card h4 {
-  font-weight: 600;
-}
+  h2 {
+    font-weight: 600;
+    color: vars.$dark-blue;
+  }
 
-.sobre-card ul li {
-  margin-bottom: 0.5rem;
-  font-size: 1.05rem;
+  .valores-grid {
+    display: flex;
+    flex-direction: row; // 🔄 lado a lado por padrão
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap; // 🔄 permite quebrar linha em telas menores
+
+    // 🔒 Estilização local para app-card-generico
+    app-card-generico {
+      flex: 1;
+      max-width: 220px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(vars.$sky-blue, 0.55);
+      text-align: center;
+
+      /* 🔹 Transição suave */
+      transition: all 0.3s ease-in-out;
+
+      /* 🔹 Efeito ao passar o mouse */
+      &:hover {
+        transform: translateY(-6px); // sobe levemente
+        box-shadow: 0 10px 20px rgba(vars.$sky-blue, 0.65); // sombra mais intensa
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+
+      app-card-generico {
+        max-width: 280px;
+        height: 180px;
+        width: 180px;
+        padding: 1.5rem;
+        margin-bottom: 0; // espaçamento entre cards
+      }
+    }
+  }
 }
 
 /* Timeline */
-.timeline {
-  border-top: 2px solid var(--bs-primary);
-  padding-top: 2rem;
-  position: relative;
-}
+.historia {
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
 
-.timeline-item {
-  flex: 1;
-  padding: 0 1rem;
-}
-
-.timeline-item h6 {
-  font-weight: 600;
-  margin-top: 0.5rem;
-}
-
-.timeline-item p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .timeline {
-    flex-direction: column;
-    border-left: 2px solid var(--bs-primary);
-    border-top: none;
-    padding-left: 2rem;
+  h3 {
+    font-weight: 600;
+    color: vars.$dark-blue;
   }
 
-  .timeline-item {
-    text-align: left;
-    margin-bottom: 2rem;
+  .timeline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid vars.$primary-color;
+
+    .timeline-item {
+      flex: 1 1 220px;
+      text-align: center;
+
+      i {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      h6 {
+        font-weight: 600;
+        margin-top: 0.5rem;
+        color: vars.$primary-color;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: vars.$text-dark;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      border-left: 2px solid vars.$primary-color;
+      border-top: none;
+      padding-left: 2rem;
+
+      .timeline-item {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+    }
   }
 }

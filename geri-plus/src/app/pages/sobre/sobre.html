@@ -1,57 +1,64 @@
 <div class="sobre-page">
-  <div class="card shadow-lg p-4 sobre-card">
-    <div class="row align-items-center mb-5">
-      <!-- Coluna de texto -->
-      <div class="col-md-6">
-        <h2 class="mb-4 title-primary">Sobre Nós</h2>
-        <p class="lead mb-4">
-          No Geri+, acreditamos que cuidar é um ato de amor e responsabilidade.
-          Nosso sistema foi criado para apoiar instituições e cuidadores,
-          oferecendo tecnologia que simplifica a gestão e valoriza o bem-estar
-          de quem é cuidado.
-        </p>
+  <!-- Hero Section -->
+  <div class="sobre-hero-wrapper">
+    <!-- Hero Section -->
+    <app-section-hero
+      titulo="Sobre Nós"
+      subtitulo="No Geri+, acreditamos que cuidar é um ato de amor e responsabilidade. 
+               Nosso sistema foi criado para apoiar instituições e cuidadores, 
+               oferecendo tecnologia que simplifica a gestão e valoriza o bem-estar de quem é cuidado."
+      tamanho="large"
+    >
+    </app-section-hero>
 
-        <h4 class="mt-4">Nossos Valores</h4>
-        <ul class="list-unstyled">
-          <li><i class="fas fa-heart text-primary me-2"></i> Humanização</li>
-          <li><i class="fas fa-cogs text-success me-2"></i> Eficiência</li>
-          <li><i class="fas fa-leaf text-success me-2"></i> Inovação</li>
-          <li><i class="fas fa-hands-helping text-primary me-2"></i> Apoio</li>
-        </ul>
-      </div>
-
-      <!-- Coluna de imagem -->
-      <div class="col-md-6 text-center">
-        <img
-          src="assets/images/equipe.png"
-          alt="Equipe Geri+"
-          class="img-fluid rounded shadow-sm"
-        />
-      </div>
+    <div class="hero-image text-center mt-4">
+      <img src="assets/images/equipe.png" alt="Equipe Geri+" class="img-fluid rounded shadow-sm" />
     </div>
+  </div>
 
-    <!-- Timeline -->
+  <!-- Valores -->
+  <div class="valores mt-5">
+    <h2 class="text-center mb-4 title-primary">Nossos Valores</h2>
+    <div class="valores-grid">
+      <app-card-generico titulo="Humanização" icone="fas fa-heart" cor="primary" variante="sobre">
+      </app-card-generico>
+
+      <app-card-generico titulo="Eficiência" icone="fas fa-cogs" cor="success" variante="sobre"> </app-card-generico>
+
+      <app-card-generico titulo="Inovação" icone="fas fa-leaf" cor="success" variante="sobre"> </app-card-generico>
+
+      <app-card-generico titulo="Apoio" icone="fas fa-hands-helping" cor="primary" variante="sobre">
+      </app-card-generico>
+    </div>
+  </div>
+
+  <!-- História -->
+  <div class="historia mt-5">
     <h3 class="text-center mb-4 title-primary">Nossa História</h3>
-    <div class="timeline d-flex justify-content-between text-center">
+
+    <div class="timeline">
       <div class="timeline-item">
-        <i class="fas fa-lightbulb fa-2x text-primary mb-2"></i>
+        <i class="fas fa-lightbulb text-primary"></i>
         <h6>2019</h6>
-        <p class="small">Ideia inicial: unir gestão e cuidado humanizado.</p>
+        <p>Ideia inicial: unir gestão e cuidado humanizado.</p>
       </div>
+
       <div class="timeline-item">
-        <i class="fas fa-code fa-2x text-success mb-2"></i>
+        <i class="fas fa-code text-success"></i>
         <h6>2020</h6>
-        <p class="small">Primeiro protótipo desenvolvido e testado.</p>
+        <p>Primeiro protótipo desenvolvido e testado.</p>
       </div>
+
       <div class="timeline-item">
-        <i class="fas fa-users fa-2x text-primary mb-2"></i>
+        <i class="fas fa-users text-primary"></i>
         <h6>2022</h6>
-        <p class="small">Parcerias com instituições e cuidadores.</p>
+        <p>Parcerias com instituições e cuidadores.</p>
       </div>
+
       <div class="timeline-item">
-        <i class="fas fa-rocket fa-2x text-success mb-2"></i>
+        <i class="fas fa-rocket text-success"></i>
         <h6>2025</h6>
-        <p class="small">Expansão e lançamento oficial do Geri+.</p>
+        <p>Expansão e lançamento oficial do Geri+.</p>
       </div>
     </div>
   </div>

@@ -1,0 +1,72 @@
+@use '../../../../styles/variables' as vars;
+
+.badge {
+  position: absolute; // 🔹 cuidado: isso só funciona se o pai tiver position: relative
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: vars.$font-size-small;
+  font-weight: 600;
+  color: vars.$text-light;
+
+  &.novo {
+    background-color: vars.$accent-color; // verde calmo
+  }
+
+  &.em-uso {
+    background-color: vars.$primary-color; // azul serenity
+  }
+}
+
+.legenda-badges {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: vars.$font-size-xsmall;
+  color: vars.$text-dark;
+
+  .badge {
+    position: static; // 🔹 sobrescreve o absolute para legenda
+    margin-right: 0.5rem;
+    font-size: vars.$font-size-xsmall;
+  }
+}
+.imprimir-prescricao {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  label {
+    font-size: vars.$font-size-small;
+    color: vars.$text-dark;
+  }
+
+  select {
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid vars.$gray-medium;
+    font-size: vars.$font-size-small;
+    background-color: vars.$text-light;
+    color: vars.$text-dark;
+  }
+
+  button {
+    background-color: vars.$primary-color;
+    color: vars.$text-light;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: vars.$font-size-small;
+
+    i {
+      margin-right: 0.3rem;
+    }
+
+    &:hover {
+      background-color: vars.$accent-color;
+    }
+  }
+}

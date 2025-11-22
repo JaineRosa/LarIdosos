@@ -1,1 +1,12 @@
-<p>recomendacoes-medicas works!</p>
+<section>
+  <h2>Recomendações Médicas</h2>
+  <app-card-generico
+    *ngFor="let p of prescricoesDoIdoso"
+    titulo="{{ p.nome }}"
+    subtitulo="{{ p.dosagem }}"
+    descricao="Horários: {{ p.frequenciaDiaria }} | Observações: {{ p.observacoes }}"
+    icone="pills"
+    tipo="{{ 'success' }}"
+  >
+  </app-card-generico>
+</section>

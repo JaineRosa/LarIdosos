@@ -10,7 +10,6 @@ export class CuidadorService {
   constructor(private userRepo: UserRepository) {}
 
   listar(): Observable<UserModel[]> {
-    // Busca todos os usuários do tipo CUIDADOR_PROFISSIONAL
     return this.userRepo.getByType('CUIDADOR');
   }
 
@@ -22,6 +21,10 @@ export class CuidadorService {
     cuidador.tipoUsuario = 'CUIDADOR'; // Garante o tipo correto
     return this.userRepo.post(cuidador);
   }
+
+  getByIdList(ids: string[]) {
+  return this.userRepo.getByIdList(ids);
+}
 
   atualizar(id: string, cuidador: UserModel): Observable<UserModel> {
     cuidador.tipoUsuario = 'CUIDADOR';

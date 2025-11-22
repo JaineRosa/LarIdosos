@@ -106,16 +106,17 @@
           </select>
 
           <select
-        *ngIf="campo.tipo === 'multi-select'"
-        [id]="campo.nome"
-        [formControlName]="campo.nome"
-        multiple
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border bg-white h-40"
-      >
-        <option *ngFor="let opcao of campo.opcoes" [ngValue]="opcao.value">
-          {{ opcao.label }}
-        </option>
-      </select>
+            *ngSwitchCase="'multi-select'"
+            [id]="campo.nome"
+            [formControlName]="campo.nome"
+            multiple
+            class="form-select custom-multiselect"
+            title="{{ campo.placeholder || 'Selecione...' }}"
+          >
+            <option *ngFor="let opcao of campo.opcoes" [value]="opcao.value">
+              {{ opcao.label }}
+            </option>
+          </select>
 
           <!-- Array (lista dinâmica) -->
           <div *ngSwitchCase="'array'" [formArrayName]="campo.nome">

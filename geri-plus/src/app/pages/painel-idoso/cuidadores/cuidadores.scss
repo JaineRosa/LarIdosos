@@ -1,0 +1,14 @@
+@use '../../../../styles/variables' as *;
+
+.cuidadores {
+    padding: $section-padding-medium;
+    max-width: $max-width;
+    margin: 0 auto;
+}
+
+.cuidadores h1 {
+    color: $primary-color;
+    font-size: $font-size-large;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}

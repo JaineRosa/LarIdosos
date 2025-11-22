@@ -23,4 +23,5 @@ export interface UserModel {
   recomendacoesMedicas?: string[]; // lista de recomendações médicas
   cuidadoresId?: string[]; // lista de cuidadores vinculados
   idososId?: string[];
+  idososVinculadosNomes?: string;
 }

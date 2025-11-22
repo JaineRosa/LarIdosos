@@ -12,5 +12,5 @@ export class SectionHero {
   @Input() subtitulo?: string;
   @Input() botaoTexto?: string;
   @Input() botaoLink?: string;
-  @Input() tamanho: 'small' | 'medium' | 'large' = 'medium'; // controla altura e fonte
+  @Input() tamanho?: 'small' | 'medium' | 'large' = 'medium'; // controla altura e fonte
 }

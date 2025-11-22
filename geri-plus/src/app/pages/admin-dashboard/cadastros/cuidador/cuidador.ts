@@ -10,7 +10,7 @@ import { UserModel } from '../../../../core/models/user.model';
 import { CuidadorService } from '../../../../core/service/cuidador.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IdosoService } from '../../../../core/service/idoso.service';
-import { Observable, tap } from 'rxjs';
+import { forkJoin, map, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-cuidador',
@@ -58,8 +58,10 @@ export class Cuidador implements OnInit {
         nome: 'senha',
         label: 'Senha',
         tipo: 'password',
-        placeholder: 'Crie uma senha segura',
-        validacao: [Validators.required],
+        placeholder: this.modoEdicao
+          ? 'Deixe vazio para manter a senha atual'
+          : 'Crie uma senha segura',
+        validacao: this.modoEdicao ? [] : [Validators.required],
       },
       {
         nome: 'statusResidencia',
@@ -78,7 +80,6 @@ export class Cuidador implements OnInit {
       },
     ];
   }
-
   ngOnInit(): void {
     this.carregarIdosos().subscribe({
       next: () => this.carregarCuidadores(), // 2. Depois de carregar as opções, carrega os cuidadores

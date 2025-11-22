@@ -1,0 +1,97 @@
+@use '../../../../../styles/variables' as vars;
+
+.painel-container {
+  background-color: vars.$gray-light;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 95%; // ocupa quase toda a largura
+  max-width: 1400px; // limite para não ficar exagerado
+  margin: 1rem auto;
+
+  .menu-painel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-bottom: 1.5rem;
+
+    button {
+      background-color: vars.$primary-color;
+      color: vars.$text-light;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: background-color 0.2s ease-in-out;
+
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background-color: vars.$accent-color;
+      }
+
+      &.ativo {
+        background-color: vars.$accent-color;
+        border-bottom: 3px solid vars.$dark-blue;
+      }
+    }
+
+    /* 🔹 Mobile */
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+        justify-content: flex-start;
+        font-size: 0.95rem; // texto menor
+        padding: 0.8rem 1rem; // mais compacto
+        gap: 0.5rem; // ícone mais próximo do texto
+
+        i {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    /* 🔹 Tablets */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      button {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.95rem;
+        gap: 0.5rem;
+      }
+    }
+  }
+
+  .conteudo-painel {
+    min-height: 70vh; // ocupa boa parte da altura da tela
+    background-color: vars.$text-light;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    @media (max-width: 768px) {
+      min-height: auto;
+      padding: 1rem;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  }
+
+  /* 🔹 Ajuste para telas muito grandes */
+  @media (min-width: 1600px) {
+    width: 98%; // ocupa quase toda a largura
+    max-width: 1800px; // aumenta limite
+    .conteudo-painel {
+      min-height: 80vh; // ocupa mais altura
+      padding: 3rem; // mais espaço interno
+    }
+  }
+}

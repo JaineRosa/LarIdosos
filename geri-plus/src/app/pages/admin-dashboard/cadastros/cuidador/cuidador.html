@@ -10,7 +10,7 @@
   <app-lista-cards
     [titulo]="'Cuidadores cadastrados'"
     [itens]="listaCuidadores"
-    [camposResumo]="['nome', 'cpf', 'telefone', 'email','idososVinculadosNomes']"
+    [camposResumo]="['nome', 'cpf', 'telefone', 'email', 'idososId']"
     [exibirFoto]="true"
     (editar)="abrirFormEdicao($event)"
     (excluir)="onExcluir($event)"
@@ -19,6 +19,7 @@
 
   <!-- Formulário de cadastro -->
   <app-form-cadastro
+    *ngIf="modoEdicao"
     [titulo]="'Cadastro de Cuidador'"
     [campos]="cuidadorCampos"
     [initialValue]="initialValue"

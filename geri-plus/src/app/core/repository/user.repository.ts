@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of } from 'rxjs';
 import { UserModel } from '../models/user.model';
 
 @Injectable({
@@ -26,6 +26,20 @@ export class UserRepository {
 
   getById(id: string): Observable<UserModel> {
     return this.http.get<UserModel>(`${this.API_URL}/${id}`, { headers: this.getHeaders() });
+  }
+
+  getByIdList(ids: string[]): Observable<UserModel[]> {
+    if (ids.length === 0) {
+      return of([]); // Retorna array vazio se não houver IDs
+    }
+    const requests = ids.map((id) =>
+      this.getById(id).pipe(
+        catchError(() => of(null)) // Retorna null se falhar, em vez de propagar erro
+      )
+    );
+    return forkJoin(requests).pipe(
+      map((results) => results.filter((result): result is UserModel => result !== null)) // Filtra nulos
+    );
   }
 
   getByType(tipo: string): Observable<UserModel[]> {

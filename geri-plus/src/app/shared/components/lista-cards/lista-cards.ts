@@ -9,7 +9,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrl: './lista-cards.scss',
 })
 export class ListaCards {
-  @Input() dados: any[] = []; // recebe a lista (ex: idosos, responsáveis, cuidadores, registros etc.)
+  @Input() mostrarAcoes: boolean = true; // controla se mostra botões de ação (editar, excluir etc.)
+
   /** Título opcional da lista */
   @Input() titulo?: string;
 

@@ -1,15 +1,11 @@
 @use 'sass:color';
 @use './styles/variables' as vars;
-
-/* Importando Bootstrap */
-@use 'bootstrap/scss/bootstrap';
-
-/* Importando FontAwesome */
 $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
 @import '@fortawesome/fontawesome-free/scss/solid';
 @import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/brands';
+@import 'bootstrap/scss/bootstrap';
 
 /* ================================
    🔄 Reset global
@@ -123,14 +119,18 @@ a.btn {
   }
 }
 
-@mixin btn-outline($color) {
+@mixin btn-outline($color, $border: null, $text: null) {
+  // usa valores opcionais quando fornecidos, senão usa $color
+  $border-color: if($border == null, $color, $border);
+  $text-color: if($text == null, $color, $text);
+
   background-color: transparent;
-  border: 2px solid $color;
-  color: $color;
+  border: 2px solid $border-color;
+  color: $text-color;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: $color;
+    background-color: $border-color;
     color: vars.$text-light;
   }
 }
@@ -152,6 +152,18 @@ a.btn {
 }
 .btn-outline-success {
   @include btn-outline(vars.$accent-color);
+}
+.btn-outline-danger {
+  @include btn-outline(vars.$error-color);
+}
+/* Botão de sair (vermelho suave) */
+.btn-exit {
+  @include btn-base(vars.$exit-red, vars.$exit-red, vars.$text-light);
+
+  &:hover {
+    background-color: vars.$exit-red-hover;
+    color: vars.$text-light;
+  }
 }
 
 /* ================================

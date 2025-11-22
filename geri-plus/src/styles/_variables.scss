@@ -14,6 +14,8 @@ $text-light: #ffffff;
 $gray-light: #f5f5f5;
 $gray-medium: #a9a9a9;
 $error-color: #dc3545; // Vermelho para erros
+$exit-red: #e57373; // vermelho suave
+$exit-red-hover: #d32f2f; // vermelho mais intenso no hover
 
 // Section paddings
 $section-padding-small: 1rem 0;
@@ -21,8 +23,8 @@ $section-padding-medium: 2rem 0;
 $section-padding-large: 3rem 0;
 $section-padding-xlarge: 4rem 0;
 
-
 // Section font sizes
+$font-size-xsmall: 0.8rem;
 $font-size-small: 1rem;
 $font-size-medium: 1.5rem;
 $font-size-large: 2rem;

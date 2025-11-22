@@ -1,0 +1,13 @@
+<div class="card-generico" [ngClass]="tipo">
+  <div class="card-header">
+    <i *ngIf="icone" class="fa-solid fa-{{ icone }}"></i>
+    <div class="card-titles">
+      <h3>{{ titulo }}</h3>
+      <small *ngIf="subtitulo">{{ subtitulo }}</small>
+    </div>
+  </div>
+  <p *ngIf="descricao">{{ descricao }}</p>
+
+  <!-- 🔹 Aqui você permite conteúdo filho -->
+  <ng-content></ng-content>
+</div>

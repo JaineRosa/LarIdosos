@@ -1,0 +1,30 @@
+@use '../../../../styles/variables' as vars;
+
+.tabela-prescricoes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+
+  th, td {
+    padding: 0.75rem;
+    border: 1px solid vars.$gray-medium;
+    text-align: left;
+    font-size: vars.$font-size-small;
+    color: vars.$text-dark;
+  }
+
+  thead {
+    background-color: vars.$primary-color;
+    color: vars.$text-light;
+    font-weight: bold;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: vars.$gray-light;
+  }
+
+  tbody tr:hover {
+    background-color: vars.$mint-green;
+    transition: background-color 0.2s ease-in-out;
+  }
+}

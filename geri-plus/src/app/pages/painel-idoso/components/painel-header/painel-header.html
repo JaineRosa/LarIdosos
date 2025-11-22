@@ -1,0 +1,21 @@
+<header class="painel-header">
+  <div class="info-familiar">
+    <div class="perfil-familiar">
+      <img src="assets/images/idosa-avatar.png" alt="Foto do familiar" />
+      <div class="dados">
+        <h2><i class="fas fa-user"></i> Olá, {{ nomeFamiliar }}</h2>
+        <p>
+          <i class="fas fa-heart"></i> Você está acompanhando <strong>{{ nomeHospede }}</strong>
+        </p>
+        <small><i class="fas fa-id-card"></i> CPF: {{ cpfHospede }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="acoes">
+    <button type="button" class="btn btn-outline-primary">
+      <i class="fas fa-cog"></i> Configurações
+    </button>
+    <button type="button" class="btn btn-exit" routerLink="/login"><i class="fas fa-sign-out-alt"></i> Sair</button>
+  </div>
+</header>
