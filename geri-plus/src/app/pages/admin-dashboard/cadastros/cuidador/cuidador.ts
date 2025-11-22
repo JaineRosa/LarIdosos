@@ -115,6 +115,7 @@ export class Cuidador implements OnInit {
             (cuidador as any).fotoUrlSegura = this.sanitizer.bypassSecurityTrustUrl(
               cuidador.fotoUrl
             );
+            (cuidador as any).idososVinculadosNomes = this.mapIdsToNames(cuidador.idososId);
           }
           return cuidador;
         });
@@ -123,6 +124,18 @@ export class Cuidador implements OnInit {
     });
   }
 
+  private mapIdsToNames(ids: string[] | undefined): string {
+        if (!ids || ids.length === 0) {
+            return 'Nenhum idoso vinculado';
+        }
+        const nomes = ids.map((id) => {
+            // Busca o nome do Idoso na lista de opções carregada (this.idososOpcoes)
+            const opcao = this.idososOpcoes.find((o) => o.value === id);
+            return opcao ? opcao.label : `ID ${id} (Não Encontrado)`;
+        });
+
+        return nomes.join(', ');
+    }
 
 
   novoCadastro() {

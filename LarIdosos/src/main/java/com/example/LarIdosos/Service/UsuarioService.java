@@ -75,6 +75,12 @@ public class UsuarioService implements UserDetailsService {
         }
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        if (usuario.getIdososId() == null) {
+            usuario.setIdososId(new ArrayList<>());
+        }
+        if (usuario.getCuidadoresId() == null) {
+            usuario.setCuidadoresId(new ArrayList<>());
+        }
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
         EmailNotificationDto notificationDto = new EmailNotificationDto(
@@ -134,6 +140,10 @@ public class UsuarioService implements UserDetailsService {
         }
         if (usuarioAtualizado.getFotoUrl() != null) {
             usuarioExistente.setFotoUrl(usuarioAtualizado.getFotoUrl());
+        }
+        if (usuarioAtualizado.getIdososId() != null) {
+            // Se o payload do Angular enviar um array (pode ser vazio), atualizamos.
+            usuarioExistente.setIdososId(usuarioAtualizado.getIdososId());
         }
         return usuarioRepository.save(usuarioExistente);
     }
