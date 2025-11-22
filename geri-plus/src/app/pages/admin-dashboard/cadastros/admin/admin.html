@@ -17,7 +17,8 @@
 
   <!-- Formulário de cadastro -->
   <app-form-cadastro
-    [titulo]="'Cadastro de Administrador'"
+    *ngIf="modoEdicao"
+  [titulo]="'Cadastro de Administrador'"
     [campos]="adminCampos"
     [initialValue]="initialValue"
     [salvarLabel]="'Salvar Admin'"

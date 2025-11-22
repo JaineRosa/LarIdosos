@@ -82,12 +82,11 @@ export class Cuidador implements OnInit {
   }
   ngOnInit(): void {
     this.carregarIdosos().subscribe({
-      next: () => this.carregarCuidadores(), // 2. Depois de carregar as opções, carrega os cuidadores
+      next: () => this.carregarCuidadores(),
       error: (err) => console.error('Erro ao carregar lista de idosos!', err),
     });
   }
 
-  // Método que busca a lista de Idosos e preenche idososOpcoes
   private carregarIdosos(): Observable<UserModel[]> {
     return this.idosoService.listar().pipe(
       tap((data: UserModel[]) => {
@@ -117,8 +116,6 @@ export class Cuidador implements OnInit {
               cuidador.fotoUrl
             );
           }
-          (cuidador as any).idososVinculadosNomes = this.mapIdsToNames(cuidador.idososId);
-
           return cuidador;
         });
       },
@@ -126,22 +123,7 @@ export class Cuidador implements OnInit {
     });
   }
 
-  // Mapeia uma lista de IDs para seus respectivos nomes (para exibição)
-  private mapIdsToNames(ids: string[] | undefined): string {
-    if (!ids || ids.length === 0) {
-      return 'Nenhum idoso vinculado';
-    }
 
-    const nomes = ids.map((id) => {
-      // Busca o nome do Idoso na lista de opções carregada
-      const opcao = this.idososOpcoes.find((o) => o.value === id);
-      return opcao ? opcao.label : `ID ${id} (Não Encontrado)`;
-    });
-
-    return nomes.join(', ');
-  }
-
-  // --- Lógica de Formulário e CRUD ---
 
   novoCadastro() {
     this.initialValue = null;

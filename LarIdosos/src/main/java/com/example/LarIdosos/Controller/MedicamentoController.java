@@ -1,5 +1,6 @@
 package com.example.LarIdosos.Controller;
 
+import com.example.LarIdosos.Models.DTO.MedicamentoDTO;
 import com.example.LarIdosos.Models.Medicamento;
 import com.example.LarIdosos.Service.MedicamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,18 @@ public class MedicamentoController {
     private MedicamentoService medicamentoService;
 
     @PostMapping
-    public ResponseEntity<?> criarMedicamento(@RequestBody Medicamento medicamento) {
+    public ResponseEntity<?> criarMedicamento(@RequestBody MedicamentoDTO dto) {
         try {
-            Medicamento novoMedicamento = medicamentoService.criarMedicamento(medicamento);
+            Medicamento novoMedicamento = medicamentoService.cadastrarMedicamento(dto);
             return new ResponseEntity<>(novoMedicamento, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Medicamento>> listarTodos() {
+        return ResponseEntity.ok(medicamentoService.listarTodos());
     }
 
     @GetMapping("/{id}")

@@ -38,7 +38,6 @@ export class Visitante implements OnInit {
     },
     { nome: 'email', label: 'Email', tipo: 'email', placeholder: 'email@exemplo.com' },
     { nome: 'telefone', label: 'Telefone', tipo: 'text', placeholder: '(00) 00000-0000' },
-    
   ];
 
   listaVisitantes: UserModel[] = [];
@@ -156,4 +155,9 @@ export class Visitante implements OnInit {
       });
     }
   }
+
+  onCancelar() {
+  this.modoEdicao = false;
+  this.initialValue = null;
+}
 }

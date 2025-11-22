@@ -10,7 +10,7 @@
   <app-lista-cards
     [titulo]="'Medicamentos cadastrados'"
     [itens]="listaMedicamentos"
-    [camposResumo]="['nome', 'dosagem', 'frequencia']"
+    [camposResumo]="['nome', 'dosagem','viaAdministracao','observacoes']"
     [exibirFoto]="false"
     (editar)="abrirFormEdicao($event)"
     (excluir)="onExcluir($event)"
@@ -19,6 +19,7 @@
 
   <!-- Formulário de cadastro -->
   <app-form-cadastro
+    *ngIf="modoEdicao"
     [titulo]="'Cadastro de Medicamento'"
     [campos]="medicamentoCampos"
     [initialValue]="initialValue"

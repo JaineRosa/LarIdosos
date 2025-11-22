@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormCadastro, CampoConfig } from '../../../../shared/components/form-cadastro/form-cadastro';
+import {
+  FormCadastro,
+  CampoConfig,
+} from '../../../../shared/components/form-cadastro/form-cadastro';
 import { ListaCards } from '../../../../shared/components/lista-cards/lista-cards';
 import { UserModel } from '../../../../core/models/user.model';
+import { AdminService } from '../../../../core/service/admin.service';
+import { Observable } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin',
@@ -12,68 +18,142 @@ import { UserModel } from '../../../../core/models/user.model';
   templateUrl: './admin.html',
   styleUrls: ['./admin.scss'],
 })
-export class Admin {
-  adminCampos: CampoConfig[] = [
-    { nome: 'nome', label: 'Nome do Administrador', tipo: 'text', placeholder: 'Digite o nome completo', validacao: [Validators.required] },
-    { nome: 'email', label: 'Email', tipo: 'email', placeholder: 'email@exemplo.com', validacao: [Validators.required, Validators.email] },
-    { nome: 'telefone', label: 'Telefone', tipo: 'text', placeholder: '(00) 00000-0000' },
-    { nome: 'senha', label: 'Senha', tipo: 'password', placeholder: 'Crie uma senha segura', validacao: [Validators.required] },
-  ];
-
-  // 🔹 Lista de administradores cadastrados
-  listaAdmins: any[] = [
-    {
-      nome: 'Ruthe Admin',
-      email: 'ruthe.admin@email.com',
-      telefone: '(47) 99999-0000',
-      foto: 'assets/images/admin-avatar.png'
-    }
-  ];
-
+export class Admin implements OnInit {
+  listaAdmins: UserModel[] = [];
   initialValue: any = null;
   modoEdicao = false;
 
-  // Abrir form para novo cadastro
+  constructor(private adminService: AdminService, private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {
+    this.carregarAdmins();
+  }
+
+  adminCampos: CampoConfig[] = [
+    {
+      nome: 'nome',
+      label: 'Nome do Administrador',
+      tipo: 'text',
+      placeholder: 'Digite o nome completo',
+      validacao: [Validators.required],
+    },
+    {
+      nome: 'email',
+      label: 'Email',
+      tipo: 'email',
+      placeholder: 'email@exemplo.com',
+      validacao: [Validators.required, Validators.email],
+    },
+    { nome: 'telefone', label: 'Telefone', tipo: 'text', placeholder: '(00) 00000-0000' },
+    {
+      nome: 'senha',
+      label: 'Senha',
+      tipo: 'password',
+      placeholder: 'Crie uma senha segura',
+      validacao: [Validators.required],
+    },
+  ];
+  private converterBase64(file: File): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = (error) => reject(error);
+        });
+    }
+
+  carregarAdmins() {
+        this.adminService.listarTodos().subscribe({
+            next: (data) => {
+                this.listaAdmins = data.map((admin) => {
+                    if (admin.fotoUrl) {
+                        (admin as any).fotoUrlSegura = this.sanitizer.bypassSecurityTrustUrl(
+                            admin.fotoUrl
+                        );
+                    }
+                    return admin;
+                });
+            },
+            error: (err) => {
+                console.error('Erro ao carregar administradores:', err);
+            }
+        });
+    }
+
   novoCadastro() {
     this.initialValue = null;
     this.modoEdicao = true;
   }
 
-  // Abrir form para edição
   abrirFormEdicao(item: any) {
     this.initialValue = item;
     this.modoEdicao = true;
   }
 
-  // Salvar administrador
-  onSubmitAdmin(payload: any): void {
-    const data: UserModel = { ...payload, tipoUsuario: 'ADMIN' };
+  async onSubmitAdmin(payload: any): Promise<void> { 
+        let fotoString = null;
 
-    if (this.initialValue) {
-      const index = this.listaAdmins.findIndex(a => a.email === this.initialValue.email);
-      if (index !== -1) {
-        this.listaAdmins[index] = data;
-      }
-    } else {
-      this.listaAdmins.push(data);
+
+        if (payload.foto && payload.foto instanceof File) {
+            fotoString = await this.converterBase64(payload.foto);
+        } 
+        else if (typeof payload.foto === 'string') {
+            fotoString = payload.foto;
+        }
+
+        const cpfLimpo = payload.cpf ? payload.cpf.replace(/\D/g, '') : ''; 
+
+        const data: UserModel = {
+            id: payload.id,
+            nome: payload.nome,
+            email: payload.email,
+            telefone: payload.telefone,
+            cpf: cpfLimpo,
+            senha: payload.senha || payload.senha === '' ? payload.senha : payload.cpf, 
+            fotoUrl: fotoString,
+            tipoUsuario: 'ADMIN',
+        };
+
+        delete (data as any).foto;
+
+        let operacao: Observable<UserModel>;
+
+        if (this.initialValue && this.initialValue.id) {
+            operacao = this.adminService.atualizar(this.initialValue.id, data);
+        } else {
+            operacao = this.adminService.criar(data);
+        }
+
+        operacao.subscribe({
+            next: () => {
+                alert('Administrador salvo com sucesso!');
+                this.modoEdicao = false;
+                this.initialValue = null;
+                this.carregarAdmins(); 
+            },
+            error: (err) => {
+                console.error('Erro ao salvar administrador:', err.error || err);
+                alert(`Erro ao salvar administrador: ${err.error?.message || 'Verifique o console.'}`);
+            },
+        });
+    }
+  onExcluir(item: any) {
+    if (!item.id) {
+      alert('Administrador sem ID para exclusão.');
+      return;
     }
 
-    console.log('Lista atualizada:', this.listaAdmins);
-
-    this.modoEdicao = false;
-    this.initialValue = null;
-  }
-
-  // Excluir administrador
-  onExcluir(item: any) {
     if (confirm(`Tem certeza que deseja excluir o administrador ${item.nome}?`)) {
-      this.listaAdmins = this.listaAdmins.filter(a => a.email !== item.email);
-      alert('Administrador excluído com sucesso!');
-
-      // 🔹 BACK-END: quando tiver API, substitua por algo assim:
-      // this.adminService.excluir(item.id).subscribe(() => {
-      //   this.listaAdmins = this.listaAdmins.filter(a => a.id !== item.id);
-      // });
+      this.adminService.excluir(item.id).subscribe({
+        next: () => {
+          alert('Administrador excluído com sucesso!');
+          this.carregarAdmins();
+        },
+        error: (err) => {
+          console.error('Erro ao excluir administrador:', err);
+          alert(`Erro ao excluir administrador: ${err.error?.message || 'Verifique o console.'}`);
+        },
+      });
     }
   }
 }

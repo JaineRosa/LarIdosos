@@ -18,13 +18,15 @@
   </app-lista-cards>
 
   <!-- Formulário de cadastro -->
-  <app-form-cadastro
-    [titulo]="'Cadastro de Visitante'"
-    [campos]="visitanteCampos"
-    [initialValue]="initialValue"
-    [salvarLabel]="'Salvar Visitante'"
-    [exibirFoto]="true"
-    (submitForm)="onSubmitVisitante($event)"
-  >
-  </app-form-cadastro>
+<app-form-cadastro
+  *ngIf="modoEdicao"
+  [titulo]="'Cadastro de Visitante'"
+  [campos]="visitanteCampos"
+  [initialValue]="initialValue"
+  [salvarLabel]="'Salvar Visitante'"
+  [exibirFoto]="true"
+  (submitForm)="onSubmitVisitante($event)"
+  (cancelarForm)="onCancelar()" 
+>
+</app-form-cadastro>
 </div>

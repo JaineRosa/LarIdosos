@@ -1,5 +1,6 @@
 package com.example.LarIdosos.Service;
 
+import com.example.LarIdosos.Models.DTO.MedicamentoDTO;
 import com.example.LarIdosos.Models.Medicamento;
 import com.example.LarIdosos.Models.Usuario;
 import com.example.LarIdosos.Repository.AgendamentoMedicamentoRepository;
@@ -28,6 +29,9 @@ public class MedicamentoService {
         return medicamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medicamento não encontrado com ID: " + id));
     }
+    public List<Medicamento> listarTodos() {
+        return medicamentoRepository.findAll();
+    }
 
     public List<Medicamento> listarPorIdoso(String idosoId) {
         return medicamentoRepository.findByIdosoId(idosoId);
@@ -38,34 +42,25 @@ public class MedicamentoService {
     }
 
 
-    public Medicamento criarMedicamento(Medicamento medicamento) {
-        // 1. Validação (Verifica se o idoso e o médico existem)
-        Usuario idoso = usuarioRepository.findById(medicamento.getIdosoId())
-                .orElseThrow(() -> new RuntimeException("Erro: Idoso com ID " + medicamento.getIdosoId() + " não encontrado."));
+    public Medicamento cadastrarMedicamento(MedicamentoDTO dto) {
 
-        usuarioRepository.findById(medicamento.getMedicoId())
-                .orElseThrow(() -> new RuntimeException("Erro: Médico com ID " + medicamento.getMedicoId() + " não encontrado."));
+        Medicamento medicamento = new Medicamento();
+        medicamento.setId(dto.getId()); // Será null para POST
+        medicamento.setNome(dto.getNome());
+        medicamento.setDosagem(dto.getDosagem());
+        medicamento.setViaAdministracao(dto.getViaAdministracao());
+        medicamento.setObservacoes(dto.getObservacoes());
 
-        medicamento.setDataPrescricao(LocalDateTime.now());
-        if (medicamento.getAgendamentosId() == null) {
-            medicamento.setAgendamentosId(new ArrayList<>());
-        }
+        medicamento.setIdosoId(null);
+        medicamento.setMedicoId(null);
+        medicamento.setDataPrescricao(null);
 
-        Medicamento medicamentoSalvo = medicamentoRepository.save(medicamento);
-
-        if (idoso.getMedicamentos() == null) {
-            idoso.setMedicamentos(new ArrayList<>());
-        }
-        idoso.getMedicamentos().add(medicamentoSalvo.getId());
-        usuarioRepository.save(idoso); // Atualiza o usuário
-
-        return medicamentoSalvo;
+        return medicamentoRepository.save(medicamento);
     }
 
     public Medicamento atualizarMedicamento(String id, Medicamento medicamentoAtualizado) {
         Medicamento medExistente = buscarPorId(id);
 
-        // Lógica de atualização "null-safe"
         if (medicamentoAtualizado.getNome() != null) {
             medExistente.setNome(medicamentoAtualizado.getNome());
         }

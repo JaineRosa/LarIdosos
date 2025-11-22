@@ -10,7 +10,7 @@
   <app-lista-cards
     [titulo]="'Cuidadores cadastrados'"
     [itens]="listaCuidadores"
-    [camposResumo]="['nome', 'cpf', 'telefone', 'email', 'idososId']"
+    [camposResumo]="['nome', 'cpf', 'telefone', 'email', 'idososVinculadosNomes']"
     [exibirFoto]="true"
     (editar)="abrirFormEdicao($event)"
     (excluir)="onExcluir($event)"
